@@ -1,0 +1,63 @@
+<html>
+  <head>
+    hello
+  </head>
+
+  <body>
+    <input type="text" id="chat_data">
+    <button id="join"> join Chat </button>
+    <button id="sendBtn"> send Chat </button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io("localhost:3000", {  transports: ['websocket'], namespace: 'chat' });
+
+      const btn = document.getElementById('sendBtn');
+      btn.addEventListener("click", sendMsg);
+      const chatBtn = document.getElementById('join');
+      chatBtn.addEventListener("click", joinChatRoom);
+
+      function sendMsg() {
+        const data = document.getElementById("chat_data").value;
+          socket.emit("msgToServer",
+            JSON.stringify({
+              chatRoomId: 'chatRoom1',
+              username: 'client1',
+              data: data,
+            })
+          )
+      }
+
+      function joinChatRoom() {
+        socket.emit("join",
+            JSON.stringify({
+              chatRoomId: 'chatRoom1',
+              username: 'client1',
+            })
+        );
+      }
+
+      socket.on("newChatter", (data) => {
+        console.log(data);
+      });
+
+      socket.on("getChatRoomUsers", (data) => {
+        console.log(data);
+      });
+
+      socket.on("msgToClient", (data) => {
+        console.log(data);
+      });
+            
+      socket.on("connect", () => {
+          console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+
+      });
+
+      socket.on("disconnect", () => {
+          console.log(`${socket.id} is disconnected`); // undefined
+      });
+    </script>
+
+  </body>
+</html>
