@@ -1,0 +1,19 @@
+<html>
+    <head>
+        Client1
+    </head>
+
+    <body>
+        <button id = "setCameraBtn">Camera On</button>
+        <button id = "setAudioBtn">Voice On</button>
+        <button id = "createRoomBtn">방 생성</button>
+        <button id = "joinRoomBtn">방 접속</button>
+        <div>
+            <video autoplay id = "localVideo" width = "480px"></video>
+            <video autoplay id = "remoteVideo" width = "480px" ></video>
+        </div>
+
+        <script type="text/javascript" src = "./socket.io/socket.io.js"></script>
+        <script type="text/javascript" src = "./script.js"></script>
+    </body>
+</html>
